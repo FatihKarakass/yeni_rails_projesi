@@ -1,3 +1,12 @@
 <div class="d-flex align-items-center justify-content-center">
 <h1>Welcome to the Main Page</h1>
+<br>
+
+    <div>
+        <% if @user %>
+        Logged in as: <%= @user.email %>
+
+        <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-primary" %>
+        <% end %>
+    </div>
 </div>
