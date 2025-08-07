@@ -1,6 +1,13 @@
 <h1>Sign Up</h1>
 
-<%= form_with model: @user, url: sign_up_path do |form| %>
+    <%= form_with model: @user, url: sign_up_path do |form| %>
+    <% if form.object.errors.any? %>
+        <div class="alert alert-danger">
+            <% form.object.errors.full_messages.each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+        </div>
+    <% end %>
 
 
 
@@ -19,14 +26,8 @@
     <%= form.password_field :password_confirmation, required: true, class: "form-control", placeholder: "password" %>
     </div>
 
+
     
-    <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-        <% @user.errors.full_messages.each do |message| %>
-            <div><%= message %></div>
-        <% end %>
-    </div>
-<% end %>
 
     <%= form.submit "Sign Up", class: "btn btn-primary" %>
 <% end %>   
