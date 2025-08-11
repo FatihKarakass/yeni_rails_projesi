@@ -1,8 +1,8 @@
-Hi <%= params[:user].email %>
+Hi <%= params[:user].email %>,
 
 Someone has requested a link to change your password. You can do this through the link below.
 
-<%= link_to "Change my password", password_reset_edit_url(token: @token) %>
+<%= link_to "Change my password", password_reset_edit_url(token: @token, host: 'localhost:3000') %>
 
 If you didn't request this, please ignore this email.
 

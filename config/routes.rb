@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   delete "logout", to: "sessions#destroy"
 
+  # X OAuth routes
+  get "auth/x", to: "x_auth#login"
+  get "auth/x/callback", to: "x_auth#callback"
+
   get "password/reset", to: "password_resets#new", as: :new_password_reset
   post "password/reset", to: "password_resets#create"
 
