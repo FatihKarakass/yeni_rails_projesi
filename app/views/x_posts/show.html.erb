@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h1>X Post Detayı</h1>
+      <div class="btn-group">
+        <%= link_to "Düzenle", edit_x_post_path(@x_post), class: "btn btn-primary" %>
+        <%= link_to "Geri", x_posts_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <h5>Post İçeriği:</h5>
+          <p class="lead"><%= @x_post.body.presence || @x_post.content %></p>
+          
+          <h5>X Hesabı:</h5>
+          <p><%= @x_post.x_account&.username || "Belirtilmemiş" %></p>
+          
+          <h5>Yayınlanma Zamanı:</h5>
+          <p><%= @x_post.publish_at&.strftime("%d.%m.%Y %H:%M") || "Belirtilmemiş" %></p>
+          
+          <h5>X Post ID:</h5>
+          <p><%= @x_post.x_post_id.presence || "Henüz yayınlanmamış" %></p>
+        </div>
+        
+        <div class="col-md-4">
+          <h5>Durum:</h5>
+          <% if @x_post.published? %>
+            <span class="badge bg-success">Yayınlandı</span>
+          <% else %>
+            <span class="badge bg-warning">Planlandı</span>
+          <% end %>
+          
+          <h5 class="mt-3">Oluşturulma:</h5>
+          <p><%= @x_post.created_at.strftime("%d.%m.%Y %H:%M") %></p>
+          
+          <h5>Güncellenme:</h5>
+          <p><%= @x_post.updated_at.strftime("%d.%m.%Y %H:%M") %></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-footer d-flex gap-2">
+      <%= button_to "Şimdi Paylaş", publish_x_post_path(@x_post), method: :post, class: "btn btn-success" %>
+      <% if @x_post.publish_at.present? && @x_post.publish_at > Time.current %>
+        <%= button_to "Zamanı gelince yayınla (yeniden planla)", publish_x_post_path(@x_post), method: :post, class: "btn btn-outline-secondary" %>
+      <% end %>
+      <%= button_to "Bu Postu Sil", @x_post, method: :delete, 
+          class: "btn btn-danger ms-auto", 
+          data: { confirm: "Bu postu silmek istediğinizden emin misiniz?" } %>
+    </div>
+  </div>
+</div>

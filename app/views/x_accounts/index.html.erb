@@ -1,0 +1,157 @@
+<h1>X Accounts</h1>
+
+<% if @x_accounts.empty? %>
+  <%= link_to "Connect X Account", auth_x_path, class: "btn btn-primary" %>
+  <p>Henüz bağlı X hesabınız yok. Yukarıdaki butonu kullanarak hesabınızı bağlayabilirsiniz.</p>
+<% else %>
+  <div class="accounts-header">
+    <h2>Bağlı X Hesapları</h2>
+    <%= link_to "Yeni X Hesabı Ekle", auth_x_path, class: "btn btn-success" %>
+  </div>
+  
+  <ul class="accounts-list">
+    <% @x_accounts.each do |x_account| %>
+      <li class="account-item">
+        <div class="account-info">
+          <% if x_account.image.present? %>
+            <img src="<%= x_account.image %>" alt="Profile" width="48" height="48" style="border-radius: 50%;">
+          <% else %>
+            <div class="profile-placeholder">
+              <i class="fas fa-user" style="font-size: 24px; color: #1DA1F2;"></i>
+            </div>
+          <% end %>
+          
+          <div class="account-details">
+            <strong>
+              <%= link_to "@#{x_account.username}", "https://x.com/#{x_account.username}", 
+                  target: "_blank", 
+                  class: "x-profile-link",
+                  title: "X profilini yeni sekmede aç" %>
+            </strong>
+            <% if x_account.name.present? %>
+              <span class="display-name">- <%= x_account.name %></span>
+            <% end %>
+          </div>
+        </div>
+        
+        <%= link_to "X Hesap Ayarları", x_account_path(x_account), class: "btn btn-info" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<style>
+.accounts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.accounts-header h2 {
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.accounts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.account-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-placeholder {
+  width: 48px;
+  height: 48px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1DA1F2;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.display-name {
+  color: #666;
+  font-size: 14px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #1e7e34;
+}
+
+.btn-info {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background: #138496;
+}
+
+.x-profile-link {
+  color: #1DA1F2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.x-profile-link:hover {
+  color: #1a91da;
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+</style>

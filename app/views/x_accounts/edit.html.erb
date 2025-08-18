@@ -1,0 +1,219 @@
+<div class="edit-x-account">
+  <div class="header-section">
+    <h1>X Hesap Bilgilerini Düzenle</h1>
+    <p class="subtitle">
+      <%= link_to "@#{@x_account.username}", "https://x.com/#{@x_account.username}", 
+          target: "_blank", 
+          class: "x-profile-link",
+          title: "X profilini yeni sekmede aç" %> hesabının bilgilerini güncelleyin
+    </p>
+  </div>
+  
+  <%= form_with model: @x_account, local: true, class: "edit-form" do |form| %>
+    <% if @x_account.errors.any? %>
+      <div class="alert alert-danger">
+        <h3><%= pluralize(@x_account.errors.count, "hata") %> nedeniyle kaydedilemedi:</h3>
+        <ul>
+          <% @x_account.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="form-section">
+      <h3>Profil Bilgileri</h3>
+      
+      <div class="form-group">
+        <%= form.label :name, "Görünen Ad", class: "form-label" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "Görünen adınızı girin" %>
+        <small class="form-text">Bu ad X'te görünecek isimdir</small>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :username, "Kullanıcı Adı", class: "form-label" %>
+        <%= form.text_field :username, class: "form-control", placeholder: "@kullanici_adi" %>
+        <small class="form-text">X kullanıcı adınız (@ ile başlar)</small>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :image, "Profil Resmi URL", class: "form-label" %>
+        <%= form.url_field :image, class: "form-control", placeholder: "https://example.com/profile.jpg" %>
+        <small class="form-text">Profil resminizin tam URL adresi</small>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <%= form.submit "Güncelle", class: "btn btn-primary btn-lg" %>
+      <%= link_to "İptal", @x_account, class: "btn btn-secondary" %>
+      <%= link_to "Geri Dön", x_accounts_path, class: "btn btn-outline-secondary" %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+.edit-x-account {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.edit-form {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-section h3 {
+  margin: 0 0 20px 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #1DA1F2;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #1DA1F2;
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
+}
+
+.form-text {
+  display: block;
+  margin-top: 5px;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.alert {
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.alert h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+.alert ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.alert li {
+  margin: 5px 0;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #1DA1F2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1a91da;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  color: #6c757d;
+  border: 2px solid #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-lg {
+  padding: 15px 30px;
+  font-size: 18px;
+}
+
+.x-profile-link {
+  color: #1DA1F2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.x-profile-link:hover {
+  color: #1a91da;
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+</style>

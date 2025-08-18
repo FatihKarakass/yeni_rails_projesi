@@ -22,7 +22,7 @@ module XOauth
       "https://x.com/i/oauth2/authorize?" +
         "response_type=code&" +
         "client_id=#{client_id}&" +
-        "redirect_uri=#{redirect_uri}&" +
+        "redirect_uri=#{URI.encode_www_form_component(redirect_uri)}&" +
         "scope=tweet.read%20users.read&" +
         "state=#{state}&" +
         "code_challenge=#{challenge}&" +

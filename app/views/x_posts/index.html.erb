@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-between align-items-center">
+<h1>X Postları</h1>
+
+<% if Current.user.x_accounts.any? %>
+  <%= link_to "Yeni X Post", new_x_post_path, class: "btn btn-primary" %>
+<% else %>
+  <%= link_to "X Hesabınızı Bağla", x_accounts_path, class: "btn btn-warning" %>
+<% end %>
+</div>
+
+<% if @x_posts.any? %>
+  <div class="mt-4">
+    <% @x_posts.each do |post| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= link_to post.body.presence || post.content, post, class: "text-decoration-none" %>
+          </h5>
+          <p class="card-text text-muted">
+            <small>
+              X Hesabı: <%= post.x_account&.username || "Belirtilmemiş" %> |
+              Yayınlanma: <%= post.publish_at&.strftime("%d.%m.%Y %H:%M") || "Belirtilmemiş" %> |
+              Durum: 
+              <% if post.published? %>
+                <span class="badge bg-success">Yayınlandı</span>
+              <% else %>
+                <span class="badge bg-warning">Planlandı</span>
+              <% end %>
+            </small>
+          </p>
+          <div class="btn-group">
+            <%= link_to "Görüntüle", post, class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Düzenle", edit_x_post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+            <%= button_to "Sil", post, method: :delete, class: "btn btn-sm btn-outline-danger", 
+                data: { confirm: "Bu postu silmek istediğinizden emin misiniz?" } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="mt-4 text-center">
+    <p class="text-muted">Henüz X post oluşturmadınız.</p>
+    <% if Current.user.x_accounts.any? %>
+      <%= link_to "İlk X Postunuzu Oluşturun", new_x_post_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>
+<% render @x_posts %>

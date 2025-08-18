@@ -1,0 +1,280 @@
+<div class="x-account-settings">
+  <div class="header-section">
+    <h1>X Hesap Ayarları</h1>
+    <p class="subtitle">@<%= @x_account.username %> hesabının ayarlarını yönetin</p>
+  </div>
+  
+  <div class="account-info">
+    <div class="profile-section">
+      <% if @x_account.image.present? %>
+        <img src="<%= @x_account.image %>" alt="Profile" width="80" height="80" style="border-radius: 50%; border: 3px solid #1DA1F2;">
+      <% else %>
+        <div class="profile-placeholder">
+          <i class="fas fa-user" style="font-size: 40px; color: #1DA1F2;"></i>
+        </div>
+      <% end %>
+      
+              <div class="profile-details">
+          <h2>
+            <%= link_to "@#{@x_account.username}", "https://x.com/#{@x_account.username}", 
+                target: "_blank", 
+                class: "x-profile-link",
+                title: "X profilini yeni sekmede aç" %>
+          </h2>
+          <% if @x_account.name.present? %>
+            <p class="display-name"><%= @x_account.name %></p>
+          <% end %>
+          <p class="account-status">
+            <span class="status-badge connected">Bağlı</span>
+          </p>
+        </div>
+    </div>
+  </div>
+  
+  <div class="settings-section">
+    <h3>Hesap Bilgileri</h3>
+    <div class="info-grid">
+      <div class="info-item">
+        <label>Kullanıcı Adı</label>
+        <span>@<%= @x_account.username %></span>
+      </div>
+      <% if @x_account.name.present? %>
+        <div class="info-item">
+          <label>Görünen Ad</label>
+          <span><%= @x_account.name %></span>
+        </div>
+      <% end %>
+      <div class="info-item">
+        <label>Bağlanma Tarihi</label>
+        <span><%= @x_account.created_at.strftime("%d %B %Y, %H:%M") %></span>
+      </div>
+      <div class="info-item">
+        <label>Son Güncelleme</label>
+        <span><%= @x_account.updated_at.strftime("%d %B %Y, %H:%M") %></span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="actions-section">
+    <h3>Hesap İşlemleri</h3>
+    <div class="action-buttons">
+      <%= link_to "Bilgileri Düzenle", edit_x_account_path(@x_account), class: "btn btn-primary" %>
+      <%= link_to "Geri Dön", x_accounts_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+  
+  <div class="danger-zone">
+    <h3>Tehlikeli Bölge</h3>
+    <p class="warning-text">Bu işlem geri alınamaz. X hesabınızla olan bağlantı tamamen kesilecektir.</p>
+    <%= link_to "X Hesabını Kaldır", x_account_path(@x_account), 
+        method: :delete, 
+        data: { confirm: "Bu X hesabını kaldırmak istediğinize emin misiniz? Bu işlem geri alınamaz." }, 
+        class: "btn btn-danger btn-lg" %>
+  </div>
+</div>
+
+<style>
+.x-account-settings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.account-info {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.profile-placeholder {
+  width: 80px;
+  height: 80px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #1DA1F2;
+}
+
+.profile-details h2 {
+  margin: 0 0 10px 0;
+  color: #1a1a1a;
+}
+
+.display-name {
+  color: #666;
+  margin: 5px 0 15px 0;
+  font-size: 18px;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-badge.connected {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.settings-section {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.settings-section h3 {
+  margin: 0 0 20px 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #1DA1F2;
+  padding-bottom: 10px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.info-item {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.info-item label {
+  display: block;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.info-item span {
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.actions-section {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.actions-section h3 {
+  margin: 0 0 20px 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #28a745;
+  padding-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.danger-zone {
+  background: #fff;
+  border: 2px solid #dc3545;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+}
+
+.danger-zone h3 {
+  margin: 0 0 15px 0;
+  color: #dc3545;
+}
+
+.warning-text {
+  color: #721c24;
+  background: #f8d7da;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.btn-lg {
+  padding: 15px 30px;
+  font-size: 18px;
+}
+
+.x-profile-link {
+  color: #1DA1F2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.x-profile-link:hover {
+  color: #1a91da;
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+</style>

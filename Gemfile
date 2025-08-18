@@ -62,3 +62,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "x", "~> 0.16.0"
+
+gem "twitter", "~> 8.2"
+
+gem "sidekiq", "~> 8.0"

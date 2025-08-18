@@ -1,0 +1,19 @@
+<div class="x-post">
+    <%= x_post.body.presence || x_post.content %>
+     <div class="x-post-footer">
+      <% if x_post.x_account&.image.present? %>
+        <%= image_tag x_post.x_account.image, class: "x-post-image" %>
+      <% else %>
+        <%= image_tag "/icon.png", class: "x-post-image" %>
+      <% end %>
+      <% if x_post.x_account&.username.present? %>
+        <%= link_to "@#{x_post.x_account.username}", "https://x.com/#{x_post.x_account.username}", target: "_blank", class: "x-post-link" %>
+      <% else %>
+        <span class="x-post-link text-muted">Hesap yok</span>
+      <% end %>
+     </div>
+     <div class="x-post-actions">
+      <%= link_to "Düzenle", edit_x_post_path(x_post), class: "x-post-action" %>
+      <%= link_to "Sil", x_post_path(x_post), method: :delete, class: "x-post-action" %>
+     </div>
+</div>
